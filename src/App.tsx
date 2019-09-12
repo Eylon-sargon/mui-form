@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import ProgressBar from "./Progress";
+import { useSpring, animated } from "react-spring";
 
 function Copyright() {
   return (
@@ -53,47 +54,54 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const springProps = useSpring({
+    from: { opacity: 0, marginTop: "-500px" },
+    to: { opacity: 1, marginTop: "0" },
+    config: { duration: 1500 }
+  });
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <div>
-          <ProgressBar />
-        </div>
-        <form className={classes.form} noValidate>
-          <Typography variant="h5">Input label</Typography>
-          <TextField
-            id="filled-full-width"
-            label="Your input here:"
-            placeholder="Placeholder"
-            fullWidth
-            margin="normal"
-            rows={4}
-            variant="outlined"
-            multiline
-          />
+    <animated.div style={springProps}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <div>
+            <ProgressBar />
+          </div>
+          <form className={classes.form} noValidate>
+            <Typography variant="h5">Input label</Typography>
+            <TextField
+              id="filled-full-width"
+              label="Your input here:"
+              placeholder="Placeholder"
+              fullWidth
+              margin="normal"
+              rows={4}
+              variant="outlined"
+              multiline
+            />
 
-          <Grid container justify="center" spacing={2}>
-            <Grid item xs={4}>
-              <Button fullWidth variant="contained" color="primary">
-                Sign In
-              </Button>
+            <Grid container justify="center" spacing={2}>
+              <Grid item xs={4}>
+                <Button fullWidth variant="contained" color="primary">
+                  Sign In
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button fullWidth variant="contained" color="secondary">
+                  Sign In
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={4}>
-              <Button fullWidth variant="contained" color="secondary">
-                Sign In
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
+          </form>
+        </div>
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      </Container>
+    </animated.div>
   );
 }
